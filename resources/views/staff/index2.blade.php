@@ -1,4 +1,4 @@
-<x-bootstrap title="Staff">
+<x-bootstrap title="Staffs">
     <div class="row g-4">
         <div class="col-lg-8">
             <a class="btn btn-success" href="{{ route('staff.create') }}"> Create New Staff</a>
@@ -26,7 +26,7 @@
     @endif
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 my-4">
-        @foreach ($staff as $item)
+        @foreach ($staffs as $item)
             <div class="col">
                 <div class="card h-100">
                     <img src="{{ $item->photo }}" class="card-img-top" alt="...">
@@ -40,7 +40,7 @@
                             {{ mb_substr($item->birthdate, 0, 130) }} ...
                         </p>
                         <p class="card-text fs-3">฿{{ number_format($item->salary) }} บาท</p>
-                        <p class="card-text">คงเหลือ : {{ $item->phone }}</p>
+                        <p class="card-text">เบอร์โทร : {{ $item->phone }}</p>
 
                     </div>
                 </div>
@@ -49,5 +49,5 @@
         @endforeach
     </div>
 
-    <div class="mt-4">{{ $staff->appends(['search' => request('search')])->links() }}</div>
+    <div class="mt-4">{{ $staffs->appends(['search' => request('search')])->links() }}</div>
 </x-bootstrap>

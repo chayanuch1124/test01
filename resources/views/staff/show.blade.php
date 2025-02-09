@@ -7,7 +7,7 @@
 
     <div class="row my-4">
         <div class="col-lg-4">
-            <img src="{{$staff->photo}}" class="img-fluid img-thumbnail" />
+            <img src="{{ $staff->photo }}" class="img-fluid img-thumbnail" />
         </div>
         <div class="col-lg-8">
 

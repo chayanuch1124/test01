@@ -20,23 +20,23 @@ class StaffController extends Controller
         // DEFINE ITEM PER PAGE
         $perPage = 8;
 
-        if (!empty($keyword)) {
-            //CASE SEARCH, show some
-            $staff = Staff::where('title', 'LIKE', "%$keyword%")
-                // ->orWhere('content', 'LIKE', "%$keyword%")
-                // ->orWhere('price', 'LIKE', "%$keyword%")
-                // ->orWhere('cost', 'LIKE', "%$keyword%")
-                // ->orWhere('photo', 'LIKE', "%$keyword%")
-                // ->orWhere('stock', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+        $search = $request->get('search');
+        if (!empty($search)) {
+            //กรณีมีข้อมูลที่ต้องการ search จะมีการใช้คำสั่ง where และ orWhere
+            $staffs = Staff::where('title', 'LIKE', "%$search%")
+                ->orWhere('birthdate', 'LIKE', "%$search%")
+                ->orWhere('salary', 'LIKE', "%$search%")
+                ->orWhere('phone', 'LIKE', "%$search%")
+                ->orderBy('salary', 'desc')->paginate($perPage);
         } else {
-            // CASE NOT SEARCH, show all
-            $staff = Staff::latest()->paginate($perPage);
+            //กรณีไม่มีข้อมูล search จะทำงานเหมือนเดิม
+            $staffs = Staff::orderBy('salary', 'desc')->paginate($perPage);
         }
 
-        return view('staff.index', compact('staff'));
-        // return view('product.index2', compact('products'));
-        // return view('products.index',compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
+
+        return view('staff.index', compact('staffs'));
+        // return view('staff.index2', compact('staffs'));
+        // return view('staffs.index',compact('staffs'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -61,7 +61,7 @@ class StaffController extends Controller
         //validation
         $request->validate([
             'title' => 'required',
-            'price' => 'required',
+            'salary' => 'required',
             // 'photo' => 'required',
         ]);
 
@@ -77,7 +77,7 @@ class StaffController extends Controller
         //CREATE A RECORD
         Staff::create($requestData);
 
-        return redirect('staff')->with('success', 'Staff created successfully.');
+        return redirect('staff')->with('success', 'staff created successfully.');
     }
 
     /**
@@ -121,7 +121,7 @@ class StaffController extends Controller
         //validation
         $request->validate([
             'title' => 'required',
-            'salary' => 'required',
+            
             // 'photo' => 'required',
         ]);
 
@@ -138,7 +138,7 @@ class StaffController extends Controller
         $staff = Staff::findOrFail($id);
         $staff->update($requestData);
 
-        return redirect('staff')->with('success', 'Staff updated successfully.');
+        return redirect('staff')->with('success', 'staff updated successfully.');
     }
 
     /**
@@ -152,6 +152,6 @@ class StaffController extends Controller
         //DELETE by id
         Staff::destroy($id);
 
-        return redirect('staff')->with('success', 'Staff deleted successfully.');
+        return redirect('staff')->with('success', 'staff deleted successfully.');
     }
 }

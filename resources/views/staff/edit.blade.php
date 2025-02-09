@@ -1,11 +1,11 @@
 <x-bootstrap title="Edit Staff">
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="py-4">
                 <a class="btn btn-primary" href="{{ route('staff.index') }}"> Back</a>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -33,16 +33,16 @@
             </div>
             <div class="col-md-12">
                 <strong>Photo: </strong>
-                <input type="file" name="photo" class="form-control" value="{{ $staff->photo }}" >
-                <img src="{{ $staff->photo }}" height="150" />
+                <input type="file" name="photo" class="form-control" value="{{ $staff->photo }}">
+                <img src="{{ $staff->photo }}"  height="150" />
             </div>
             <div class="col-md-12">
                 <strong>Birthdate:</strong>
-                <textarea class="form-control" style="height:150px" name="birthdate" > {{ $staff->birthdate }}</textarea>
+                <input type="date" name="birthdate" class="form-control" value="{{ $staff->birthdate }}">
             </div>
             <div class="col-md-12">
                 <strong>Phone: </strong>
-                <input type="number" name="phone" class="form-control" value="{{ $staff->phone }}">
+                <input type="text" name="phone" class="form-control" value="{{ $staff->phone }}">
             </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
